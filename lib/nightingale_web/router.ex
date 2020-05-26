@@ -31,7 +31,6 @@ defmodule NightingaleWeb.Router do
     plug :put_secure_browser_headers
     plug :put_root_layout, {NightingaleWeb.LayoutView, :root}
     plug AppDomainRedirect
-    plug BrowserAuthentication, otp_app: :nightingale
   end
 
   pipeline :api do
@@ -39,24 +38,8 @@ defmodule NightingaleWeb.Router do
     plug APIAuthentication, otp_app: :nightingale
   end
 
-  pipeline :require_admin do
-    plug RequirePermission, permission: :administrator
-  end
-
-  pipeline :protected do
-    plug Pow.Plug.RequireAuthenticated,
-      error_handler: Pow.Phoenix.PlugErrorHandler
-  end
-
-  pipeline :anonymous do
-    plug Pow.Plug.RequireNotAuthenticated, error_handler: Pow.Phoenix.PlugErrorHandler
-  end
-
   scope "/" do
     pipe_through :browser
-
-    pow_routes()
-    pow_extension_routes()
   end
 
   scope "/", NightingaleWeb do
@@ -74,18 +57,18 @@ defmodule NightingaleWeb.Router do
   end
 
   scope "/admin" do
-    pipe_through [:browser, :protected, :require_admin]
+    pipe_through [:browser]
 
     forward("/", Adminable.Plug,
       otp_app: :nightingale,
       repo: Nightingale.Repo,
-      schemas: [Nightingale.User],
+      schemas: [],
       layout: {NightingaleWeb.LayoutView, "app.html"}
     )
   end
 
   scope "/images" do
-    pipe_through([:browser, :protected])
+    pipe_through([:browser])
 
     forward("/sign", Transmit,
       signer: Transmit.S3Signer,
@@ -95,8 +78,5 @@ defmodule NightingaleWeb.Router do
   end
 
   scope "/api", NightingaleWeb.API, as: :api do
-    pipe_through [:api]
-
-    get "/", MeController, :show
   end
 end
