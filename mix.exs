@@ -75,7 +75,6 @@ defmodule Nightingale.Mixfile do
       {:prometheus_plugs, "~> 1.1"},
       {:prometheus_process_collector, "~> 1.4"},
       {:libcluster, "~> 3.0"},
-      {:pow, "~> 1.0"},
       {:phoenix_live_view, "~> 0.12.0"},
       {:floki, ">= 0.0.0", only: :test},
       {:phoenix_live_dashboard, "~> 0.1"}

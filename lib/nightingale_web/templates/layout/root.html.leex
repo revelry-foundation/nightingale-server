@@ -21,21 +21,6 @@
               <%= menu_item :li, [] do %>
                 <%= link gettext("Home"), to: Routes.page_path(@conn, :index) %>
               <% end %>
-              <%= if Pow.Plug.current_user(@conn) == nil do %>
-                <%= menu_item :li, [] do %>
-                  <%= link gettext("Register"), to: Routes.pow_registration_path(@conn, :new) %>
-                <% end %>
-                <%= menu_item :li, [] do %>
-                  <%= link gettext("Sign In"), to: Routes.pow_session_path(@conn, :new) %>
-                <% end %>
-              <% else %>
-                <%= menu_item :li, [] do %>
-                  <%= link gettext("Settings"), to: Routes.pow_registration_path(@conn, :edit) %>
-                <% end %>
-                <%= menu_item :li, [] do %>
-                  <%= link gettext("Sign Out"), to: Routes.pow_session_path(@conn, :delete), method: :delete %>
-                <% end %>
-              <% end %>
             <% end %>
           </div>
         </nav>

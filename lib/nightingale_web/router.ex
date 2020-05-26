@@ -3,16 +3,10 @@ defmodule NightingaleWeb.Router do
   use Pow.Phoenix.Router
   import Phoenix.LiveDashboard.Router
 
-  use Pow.Extension.Phoenix.Router,
-    extensions: [PowResetPassword, PowEmailConfirmation]
-
   use Plug.ErrorHandler
 
   alias NightingaleWeb.{
-    APIAuthentication,
     AppDomainRedirect,
-    BrowserAuthentication,
-    RequirePermission
   }
 
   defp handle_errors(conn, error_data) do
@@ -35,7 +29,6 @@ defmodule NightingaleWeb.Router do
 
   pipeline :api do
     plug :accepts, ["json"]
-    plug APIAuthentication, otp_app: :nightingale
   end
 
   scope "/" do
