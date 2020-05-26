@@ -1,6 +1,5 @@
 defmodule NightingaleWeb.Router do
   use NightingaleWeb, :router
-  use Pow.Phoenix.Router
   import Phoenix.LiveDashboard.Router
 
   use Plug.ErrorHandler
