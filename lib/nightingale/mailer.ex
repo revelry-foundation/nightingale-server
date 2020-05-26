@@ -3,7 +3,6 @@ defmodule Nightingale.Mailer do
   Nightingale mailer
   """
   use Bamboo.Mailer, otp_app: :nightingale
-  use Pow.Phoenix.Mailer
 
   import Bamboo.Email
 
