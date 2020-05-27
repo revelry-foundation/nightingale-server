@@ -85,12 +85,12 @@ jobs:
       if: branch = master
       script: skip
       before_deploy:
-        - echo $DOCKER_PASSWORD | docker login harbor.revelry-prod.revelry.net -u $DOCKER_USERNAME --password-stdin
+        - echo $DOCKER_PASSWORD | docker login harbor.nightingale.revelry.org -u $DOCKER_USERNAME --password-stdin
         - export ROLLBAR_DEPLOY_ID=$(./bin/rollbar_release started)
       after_deploy:
         - ./bin/rollbar_release succeeded
       deploy:
         provider: script
-        script: bin/docker_pub . library/nightingale harbor.revelry-prod.revelry.net
+        script: bin/docker_pub . library/nightingale harbor.nightingale.revelry.org
         on:
           branch: master
