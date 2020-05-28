@@ -76,7 +76,8 @@ defmodule Nightingale.Mixfile do
       {:libcluster, "~> 3.0"},
       {:phoenix_live_view, "~> 0.12.0"},
       {:floki, ">= 0.0.0", only: :test},
-      {:phoenix_live_dashboard, "~> 0.1"}
+      {:phoenix_live_dashboard, "~> 0.1"},
+      {:geo_postgis, "~> 3.1"},
     ]
   end
 

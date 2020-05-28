@@ -1,3 +1,3 @@
-Postgrex.Types.define(Nightingale.PostgresTypes, [] ++ Ecto.Adapters.Postgres.extensions(),
+Postgrex.Types.define(Nightingale.PostgresTypes, [Geo.PostGIS.Extension] ++ Ecto.Adapters.Postgres.extensions(),
   json: Jason
 )

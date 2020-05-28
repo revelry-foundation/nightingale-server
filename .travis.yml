@@ -20,11 +20,13 @@ jobs:
           - _build
           - deps
           - assets/node_modules
-      addons:
-        chrome: stable
-        postgresql: '9.6'
       services:
         - postgresql
+      addons:
+        postgresql: '9.6'
+        apt:
+          packages:
+            - postgresql-9.6-postgis-2.4
       before_script:
         - psql -c 'create database nightingale_test;' -U postgres
       install:
