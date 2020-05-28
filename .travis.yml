@@ -23,6 +23,9 @@ jobs:
       addons:
         chrome: stable
         postgresql: '9.6'
+          apt:
+            packages:
+              - postgresql-9.6-postgis-2.3
       services:
         - postgresql
       before_script:
