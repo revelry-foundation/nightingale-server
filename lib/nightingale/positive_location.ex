@@ -18,12 +18,10 @@ defmodule Nightingale.PositiveLocation do
       [
         :app_version,
         :json_blob,
-        :version,
-        :document_status,
       ]
     )
     |> unwrap_location()
-    |> validate_required([:customer_id, :contract, :location])
+    |> validate_required([:json_blob, :app_version, :location])
   end
 
   defp unwrap_location(changeset) do
