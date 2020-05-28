@@ -31,7 +31,6 @@ jobs:
       before_script:
         - psql -c 'create database nightingale_test;' -U postgres
       install:
-        - apt install postgresql-9.6-postgis-2.3
         - gem install coveralls-multi
         - mix local.hex --force
         - mix local.rebar --force
