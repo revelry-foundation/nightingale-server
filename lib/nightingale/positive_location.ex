@@ -29,16 +29,15 @@ defmodule Nightingale.PositiveLocation do
   defp unwrap_location(changeset) do
     if get_field(changeset, :location) == nil do
       json = get_field(changeset, :json_blob)
-      coords = Map.get(json, :coordinates)
 
-      put_change(changeset, :location, generate_geo_point(coords))
+      put_change(changeset, :location, generate_geo_point(json))
     end
   end
 
-  defp generate_geo_point(nil), do: nil
   defp generate_geo_point(%{lng: long, lat: lat}) do
     %Geo.Point{coordinates: {long, lat}, srid: nil}
   end
+  defp generate_geo_point(_), do: nil
 
 end
 
