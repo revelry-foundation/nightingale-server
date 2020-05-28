@@ -36,21 +36,4 @@ defmodule Nightingale.PositiveLocation do
     %Geo.Point{coordinates: {long, lat}, srid: nil}
   end
   defp generate_geo_point(_), do: nil
-
-end
-
-defimpl Jason.Encoder, for: Nightingale.PositiveLocation do
-  def encode(%{name: name, location: location}, opts) do
-    %{lat: lat, lng: lng} = decode_location(location)
-
-    Jason.Encode.map(%{name: name, lat: lat, lng: lng}, opts)
-  end
-
-  defp decode_location(%{coordinates: {lng, lat}}) do
-    %{lat: lat, lng: lng}
-  end
-
-  defp decode_location(%{}) do
-    %{lat: nil, lng: nil}
-  end
 end
