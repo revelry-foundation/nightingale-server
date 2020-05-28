@@ -24,6 +24,7 @@ defmodule NightingaleWeb do
       alias NightingaleWeb.Router.Helpers, as: Routes
       import NightingaleWeb.Gettext
       import Phoenix.LiveView.Controller
+      import NightingaleWeb.ControllerHelpers
     end
   end
 
