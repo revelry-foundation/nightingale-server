@@ -39,7 +39,7 @@ config :nightingale, Nightingale.Mailer, adapter: Bamboo.LocalAdapter
 config :bamboo, :json_library, Jason
 
 config :geo_postgis,
-  json_library: Poison
+  json_library: Jason
 
 config :ex_aws,
   access_key_id: [System.get_env("AWS_ACCESS_KEY_ID"), :instance_role],
