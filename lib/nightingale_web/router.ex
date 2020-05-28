@@ -5,7 +5,7 @@ defmodule NightingaleWeb.Router do
   use Plug.ErrorHandler
 
   alias NightingaleWeb.{
-    AppDomainRedirect,
+    AppDomainRedirect
   }
 
   defp handle_errors(conn, error_data) do
@@ -70,5 +70,10 @@ defmodule NightingaleWeb.Router do
   end
 
   scope "/api", NightingaleWeb.API, as: :api do
+    pipe_through([:api])
+
+    scope "/v1", V1, as: :v1 do
+      get("/find_proximate_positives", SearchController, :find_proximate_positives)
+    end
   end
 end
