@@ -6,7 +6,7 @@ defmodule Nightingale.Repo.Migrations.CreatePositiveLocationsTable do
       add(:location, :geometry)
       add(:json_blob, :map)
       add(:app_version, :string)
-      add(:when, utc_datetime)
+      add(:when, :utc_datetime)
 
       timestamps()
     end
