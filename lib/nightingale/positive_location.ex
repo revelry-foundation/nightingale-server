@@ -41,7 +41,7 @@ defmodule Nightingale.PositiveLocation do
     end
   end
 
-  def inflate(%__MODULE__{location: %Geo.Point{coordinates: {lng, lat}}} = struct) do
+  def inflate_virtual_fields(%__MODULE__{location: %Geo.Point{coordinates: {lng, lat}}} = struct) do
     %{struct | lng: lng, lat: lat}
   end
 end
