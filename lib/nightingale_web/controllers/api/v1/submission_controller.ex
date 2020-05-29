@@ -9,10 +9,12 @@ defmodule NightingaleWeb.API.V1.SubmissionController do
       |> PositiveLocations.create_positive_location()
       |> case do
         {:ok, positive_location} ->
-          positive_location
-          |> PositiveLocation.inflate_virtual_fields()
-          |> Map.take([:lng, :lat, :when])
-          |> Map.put(:ok, true)
+          data =
+            positive_location
+            |> PositiveLocation.inflate_virtual_fields()
+            |> Map.take([:lng, :lat, :when])
+
+          %{ok: true, data: data}
 
         {:error, changeset} ->
           %{ok: false, errors: get_changeset_errors_as_map(changeset)}
