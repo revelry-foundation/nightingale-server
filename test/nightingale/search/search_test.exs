@@ -4,14 +4,11 @@ defmodule Nightingale.SearchTest do
   alias Search.LocationCheck
 
   test "find_proximate_positives/1" do
-    lcheck = %LocationCheck{
-      lat: 90.0,
-      lng: 90.0,
-      when: DateTime.from_iso8601("2020-05-28T17:21:29.118Z")
-    }
+    exact_match = insert(:positive_location)
+    %{when: when_at, location: %{coordinates: {lat, lng}}} = exact_match
 
-    result = Search.find_proximate_positives(lcheck)
+    lcheck = %LocationCheck{lat: lat, lng: lng, when: when_at}
 
-    assert is_list(result)
+    assert [exact_match] = Search.find_proximate_positives(lcheck)
   end
 end
