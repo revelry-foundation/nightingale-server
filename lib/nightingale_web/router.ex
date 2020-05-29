@@ -74,7 +74,7 @@ defmodule NightingaleWeb.Router do
 
     scope "/v1", V1, as: :v1 do
       get("/find_proximate_positives", SearchController, :find_proximate_positives)
-      get("/submit_positive_location", SubmissionController, :submit_positive_location)
+      post("/submit_positive_location", SubmissionController, :submit_positive_location)
     end
   end
 end
