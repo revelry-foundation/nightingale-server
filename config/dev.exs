@@ -48,8 +48,7 @@ config :nightingale, Nightingale.Repo,
   database: "nightingale_dev",
   hostname: "localhost",
   port: String.to_integer(System.get_env("PGPORT") || "5432"),
-  pool_size: 10,
-  types: Nightingale.PostgresTypes
+  pool_size: 10
 
 config :nightingale, Nightingale.Mailer, adapter: Bamboo.LocalAdapter
 

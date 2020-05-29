@@ -18,15 +18,14 @@ config :nightingale, Nightingale.Repo,
   database: "nightingale_test",
   hostname: "localhost",
   port: String.to_integer(System.get_env("PGPORT") || "5432"),
-  pool: Ecto.Adapters.SQL.Sandbox,
-  types: Nightingale.PostgresTypes
+  pool: Ecto.Adapters.SQL.Sandbox
 
 config :nightingale, Nightingale.Mailer, adapter: Bamboo.TestAdapter
 
 config :nightingale,
   s3_signer: Nightingale.S3Signer.Mock
 
-  config :hound,
+config :hound,
   driver: "selenium",
   browser: "chrome",
   app_port: 4001,
