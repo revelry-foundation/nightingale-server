@@ -3,7 +3,7 @@ defmodule Nightingale.Factory do
   use ExMachina.Ecto, repo: Repo
 
   def geo_point() do
-    %Geo.Point{coordinates: {90.0, 90.0}}
+    %Geo.Point{coordinates: {0.0, 0.0}}
   end
 
   def positive_location_factory() do
