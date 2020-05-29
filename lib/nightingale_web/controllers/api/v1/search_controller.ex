@@ -1,37 +1,30 @@
 defmodule NightingaleWeb.API.V1.SearchController do
   use NightingaleWeb, :controller
 
-  alias Nightingale.Search.LocationCheck
+  alias Nightingale.{Search, PositiveLocation}
+  alias Search.LocationCheck
 
   def find_proximate_positives(conn, params) do
     response_map =
       params
       |> LocationCheck.validate()
       |> case do
-        {:ok, _location_check} ->
-          %{
-            ok: true,
-            positives: [
-              %{
-                lat: 90.0,
-                lng: 90.0,
-                when: "2020-05-28T17:21:29.118Z"
-              },
-              %{
-                lat: 90.0,
-                lng: 90.0,
-                when: "2020-05-28T17:21:29.118Z"
-              }
-            ]
-          }
+        {:ok, location_check} ->
+          positives =
+            location_check
+            |> Search.find_proximate_positives()
+            |> Enum.map(&positive_to_map/1)
+
+          %{ok: true, positives: positives}
 
         {:error, changeset} ->
-          %{
-            ok: false,
-            errors: get_changeset_errors_as_map(changeset)
-          }
+          %{ok: false, errors: get_changeset_errors_as_map(changeset)}
       end
 
     json(conn, response_map)
+  end
+
+  defp positive_to_map(%PositiveLocation{location: %{coordinates: {lat, lng}}, when: dt_when}) do
+    %{lat: lat, lng: lng, when: dt_when}
   end
 end

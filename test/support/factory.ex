@@ -6,11 +6,16 @@ defmodule Nightingale.Factory do
     %Geo.Point{coordinates: {0.0, 0.0}}
   end
 
+  def datetime(str) when is_bitstring(str) do
+    {:ok, dt, _} = DateTime.from_iso8601(str)
+    dt
+  end
+
   def positive_location_factory() do
     %Nightingale.PositiveLocation{
       json_blob: %{},
       location: geo_point(),
-      when: "2020-05-28T17:21:29.118Z"
+      when: datetime("2020-05-28T17:21:29Z")
     }
   end
 end
