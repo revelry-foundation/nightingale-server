@@ -16,7 +16,7 @@ defmodule Nightingale.Mixfile do
         coveralls: :test,
         "coveralls.detail": :test,
         "coveralls.post": :test,
-        "coveralls.html": :test,
+        "coveralls.html": :test
       ]
     ]
   end
@@ -78,7 +78,7 @@ defmodule Nightingale.Mixfile do
       {:floki, ">= 0.0.0", only: :test},
       {:phoenix_live_dashboard, "~> 0.1"},
       {:geo_postgis, "~> 3.1"},
-      {:timex, "~> 3.5"}
+      {:timex, "~> 3.6"}
     ]
   end
 
