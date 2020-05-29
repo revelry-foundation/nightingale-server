@@ -14,8 +14,16 @@ defmodule NightingaleWeb.API.V1.SubmissionController do
           |> Map.merge(%{"json_blob" => params})
           |> PositiveLocation.changeset()
           |> Repo.insert()
+          |> case do
+            {:ok, _} ->
+              %{ok: true}
+            {:error, changeset} ->
+              %{
+                ok: false,
+                errors: get_changeset_errors_as_map(changeset)
+              }
+          end
 
-          %{ok: true}
 
         {:error, changeset} ->
           %{
