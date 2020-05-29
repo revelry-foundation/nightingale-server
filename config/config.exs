@@ -12,8 +12,7 @@ config :phoenix, :format_encoders, json: Jason
 config :nightingale,
   ecto_repos: [Nightingale.Repo]
 
-config :nightingale, Repo,
-  types: Nightingale.PostgresTypes
+config :nightingale, Nightingale.Repo, types: Nightingale.PostgresTypes
 
 # Configures the endpoint
 config :nightingale, NightingaleWeb.Endpoint,
