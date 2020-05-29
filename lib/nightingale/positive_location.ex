@@ -15,9 +15,10 @@ defmodule Nightingale.PositiveLocation do
 
   def changeset(attrs \\ %{}) do
     %__MODULE__{}
-    |> cast(attrs, [:location, :lng, :lat, :when, :app_version])
+    |> cast(attrs, [:lng, :lat, :when, :app_version])
+    |> validate_required([:lng, :lat, :when, :app_version])
     |> update_location()
-    |> validate_required([:location, :when, :app_version])
+    |> validate_required([:location])
   end
 
   @srid_geographic_coordinates 4326
