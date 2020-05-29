@@ -1,6 +1,6 @@
 defmodule Nightingale.SearchTest do
   use Nightingale.DataCase, async: true
-  alias Nightingale.{PositiveLocation, Search}
+  alias Nightingale.Search
   alias Search.LocationCheck
 
   test "find_proximate_positives/1" do
