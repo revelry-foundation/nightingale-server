@@ -5,9 +5,9 @@ defmodule Nightingale.SearchTest do
 
   test "find_proximate_positives/1" do
     ploc = insert(:positive_location)
-    %{when: when_at, location: %{coordinates: {lat, lng}}} = ploc
+    %{when: when_at, location: %{coordinates: {lng, lat}}} = ploc
 
-    lcheck = %LocationCheck{lat: lat, lng: lng, when: when_at}
+    lcheck = %LocationCheck{lng: lng, lat: lat, when: when_at}
 
     assert [ploc] = Search.find_proximate_positives(lcheck)
 
@@ -15,7 +15,7 @@ defmodule Nightingale.SearchTest do
 
     assert [] = Search.find_proximate_positives(lcheck)
 
-    lcheck = %LocationCheck{lat: lat, lng: lng + 90.0, when: when_at}
+    lcheck = %LocationCheck{lng: lng, lat: lat + 90.0, when: when_at}
 
     assert [] = Search.find_proximate_positives(lcheck)
 

@@ -28,8 +28,8 @@ defmodule Nightingale.SearchLocationCheckTest do
   ]
 
   @valid_location_check_params %{
-    "lat" => hd(@valid_lat_list),
     "lng" => hd(@valid_lng_list),
+    "lat" => hd(@valid_lat_list),
     "when" => hd(@valid_when_list)
   }
 

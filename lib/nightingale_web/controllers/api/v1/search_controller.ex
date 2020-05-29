@@ -24,7 +24,7 @@ defmodule NightingaleWeb.API.V1.SearchController do
     json(conn, response_map)
   end
 
-  defp positive_to_map(%PositiveLocation{location: %{coordinates: {lat, lng}}, when: dt_when}) do
-    %{lat: lat, lng: lng, when: dt_when}
+  defp positive_to_map(%PositiveLocation{location: %{coordinates: {lng, lat}}, when: dt_when}) do
+    %{lng: lng, lat: lat, when: dt_when}
   end
 end

@@ -7,8 +7,8 @@ defmodule Nightingale.Search do
   @proximate_meters_delta 10
   @proximate_duration_delta Timex.Duration.from_minutes(30)
 
-  def find_proximate_positives(%LocationCheck{lat: lat, lng: lng, when: when_mid}) do
-    location = %Geo.Point{coordinates: {lat, lng}}
+  def find_proximate_positives(%LocationCheck{lng: lng, lat: lat, when: when_mid}) do
+    location = %Geo.Point{coordinates: {lng, lat}}
     when_lower = Timex.subtract(when_mid, @proximate_duration_delta)
     when_upper = Timex.add(when_mid, @proximate_duration_delta)
 

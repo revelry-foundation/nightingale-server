@@ -5,9 +5,9 @@ defmodule NightingaleWeb.API.V1.SearchControllerTest do
     # Not inserting it yet, so there should be no matches.
     ploc = build(:positive_location)
 
-    %{when: dt_when, location: %{coordinates: {lat, lng}}} = ploc
+    %{when: dt_when, location: %{coordinates: {lng, lat}}} = ploc
     str_when = DateTime.to_iso8601(dt_when)
-    params = %{"lat" => lat, "lng" => lng, "when" => str_when}
+    params = %{"lng" => lng, "lat" => lat, "when" => str_when}
 
     conn = get(conn, "/api/v1/find_proximate_positives", params)
 
@@ -24,8 +24,8 @@ defmodule NightingaleWeb.API.V1.SearchControllerTest do
   test "GET /api/v1/find_proximate_positives with invalid params", %{conn: conn} do
     conn =
       get(conn, "/api/v1/find_proximate_positives", %{
-        "lat" => 90.0,
         "lng" => 90.0,
+        "lat" => 90.0,
         "when" => "invalid value"
       })
 
