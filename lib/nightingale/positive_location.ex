@@ -12,8 +12,8 @@ defmodule Nightingale.PositiveLocation do
     timestamps()
   end
 
-  def changeset(model, params \\ %{}) do
-    model
+  def changeset(params \\ %{}) do
+    %__MODULE__{}
     |> cast(
       params,
       [
@@ -35,10 +35,14 @@ defmodule Nightingale.PositiveLocation do
     end
   end
 
-  defp retrieve_when_datetime(%{when: datetime}), do: datetime
+  defp retrieve_when_datetime(%{"when" => datetime}) do
+    datetime
+    |> Timex.parse!("{ISO:Extended}")
+    |> DateTime.truncate(:second)
+  end
   defp retrieve_when_datetime(_), do: nil
 
-  defp generate_geo_point(%{lng: long, lat: lat}) do
+  defp generate_geo_point(%{"lng" => long, "lat" => lat}) do
     %Geo.Point{coordinates: {long, lat}, srid: nil}
   end
   defp generate_geo_point(_), do: nil
