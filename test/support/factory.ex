@@ -13,7 +13,6 @@ defmodule Nightingale.Factory do
 
   def positive_location_factory() do
     %Nightingale.PositiveLocation{
-      json_blob: %{},
       location: geo_point(),
       when: datetime("2020-05-28T17:21:29Z")
     }
