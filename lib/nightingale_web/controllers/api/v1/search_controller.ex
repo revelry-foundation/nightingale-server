@@ -24,7 +24,9 @@ defmodule NightingaleWeb.API.V1.SearchController do
     json(conn, response_map)
   end
 
-  defp positive_to_map(%PositiveLocation{location: %{coordinates: {lng, lat}}, when: dt_when}) do
-    %{lng: lng, lat: lat, when: dt_when}
+  defp positive_to_map(positive_location) do
+    positive_location
+    |> PositiveLocation.inflate_virtual_fields()
+    |> Map.take([:lng, :lat, :when])
   end
 end

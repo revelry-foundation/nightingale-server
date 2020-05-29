@@ -4,46 +4,45 @@ defmodule Nightingale.PositiveLocation do
   import Ecto.{Query, Changeset}, warn: false
 
   schema "positive_locations" do
-    field :json_blob, :map
-    field :location, Geo.PostGIS.Geometry
-    field :app_version, :string
-    field :when, :utc_datetime
+    field(:location, Geo.PostGIS.Geometry)
+    field(:lng, :float, virtual: true)
+    field(:lat, :float, virtual: true)
+    field(:app_version, :string)
+    field(:when, :utc_datetime)
 
     timestamps()
   end
 
-  def changeset(params \\ %{}) do
+  def changeset(attrs \\ %{}) do
     %__MODULE__{}
-    |> cast(
-      params,
-      [
-        :app_version,
-        :json_blob,
-      ]
-    )
-    |> unwrap_location()
-    |> validate_required([:json_blob, :when, :app_version, :location])
+    |> cast(attrs, [:lng, :lat, :when, :app_version])
+    |> validate_required([:lng, :lat, :when, :app_version])
+    |> update_location()
+    |> validate_required([:location])
   end
 
-  defp unwrap_location(changeset) do
-    if get_field(changeset, :location) == nil do
-      json = get_field(changeset, :json_blob)
+  @srid_geographic_coordinates 4326
 
-      changeset
-      |> put_change(:location, generate_geo_point(json))
-      |> put_change(:when, retrieve_when_datetime(json))
+  defp geo_point(lng: lng, lat: lat) do
+    %Geo.Point{coordinates: {lng, lat}, srid: @srid_geographic_coordinates}
+  end
+
+  defp update_location(changeset) do
+    case get_change(changeset, :location) do
+      nil ->
+        if is_nil(get_change(changeset, :lng)) and is_nil(get_change(changeset, :lat)) do
+          changeset
+        else
+          location = geo_point(lng: get_field(changeset, :lng), lat: get_field(changeset, :lat))
+          put_change(changeset, :location, location)
+        end
+
+      _ ->
+        changeset
     end
   end
 
-  defp retrieve_when_datetime(%{"when" => datetime}) do
-    datetime
-    |> Timex.parse!("{ISO:Extended}")
-    |> DateTime.truncate(:second)
+  def inflate_virtual_fields(%__MODULE__{location: %Geo.Point{coordinates: {lng, lat}}} = struct) do
+    %{struct | lng: lng, lat: lat}
   end
-  defp retrieve_when_datetime(_), do: nil
-
-  defp generate_geo_point(%{"lng" => long, "lat" => lat}) do
-    %Geo.Point{coordinates: {long, lat}, srid: nil}
-  end
-  defp generate_geo_point(_), do: nil
 end
