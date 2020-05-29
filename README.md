@@ -66,7 +66,7 @@ GET /api/v1/find_proximate_positives
 
 #### Example URL
 
-http://nightingale-server.nightingale.revelry.org/api/v1/find_proximate_positives?lat=90.0&lng=90.0&when=2020-05-28T17:21:29.118Z
+https://nightingale-server.nightingale.revelry.org/api/v1/find_proximate_positives?lat=90.0&lng=90.0&when=2020-05-28T17:21:29.118Z
 
 #### Example Response Body
 
