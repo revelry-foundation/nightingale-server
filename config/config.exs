@@ -12,6 +12,8 @@ config :phoenix, :format_encoders, json: Jason
 config :nightingale,
   ecto_repos: [Nightingale.Repo]
 
+config :nightingale, Nightingale.Repo, types: Nightingale.PostgresTypes
+
 # Configures the endpoint
 config :nightingale, NightingaleWeb.Endpoint,
   url: [host: "localhost"],
@@ -34,6 +36,9 @@ config :rollbax,
 config :nightingale, Nightingale.Mailer, adapter: Bamboo.LocalAdapter
 
 config :bamboo, :json_library, Jason
+
+config :geo_postgis,
+  json_library: Jason
 
 config :ex_aws,
   access_key_id: [System.get_env("AWS_ACCESS_KEY_ID"), :instance_role],

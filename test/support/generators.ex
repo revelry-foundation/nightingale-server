@@ -8,19 +8,6 @@ defmodule Nightingale.Generators do
 
   use ExUnitProperties
 
-  alias Nightingale.{
-    User
-  }
-
-  def generator(:user) do
-    gen all email <- generator(:email) do
-      %User{
-        email: email,
-        password: Bcrypt.hash_pwd_salt("password")
-      }
-    end
-  end
-
   def generator(:email) do
     gen all local <- string(:alphanumeric, min_length: 1),
             domain <- string(:alphanumeric, min_length: 1) do

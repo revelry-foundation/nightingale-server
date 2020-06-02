@@ -16,8 +16,7 @@ defmodule Nightingale.Mixfile do
         coveralls: :test,
         "coveralls.detail": :test,
         "coveralls.post": :test,
-        "coveralls.html": :test,
-        integration_tests: :test
+        "coveralls.html": :test
       ]
     ]
   end
@@ -77,7 +76,9 @@ defmodule Nightingale.Mixfile do
       {:libcluster, "~> 3.0"},
       {:phoenix_live_view, "~> 0.12.0"},
       {:floki, ">= 0.0.0", only: :test},
-      {:phoenix_live_dashboard, "~> 0.1"}
+      {:phoenix_live_dashboard, "~> 0.1"},
+      {:geo_postgis, "~> 3.1"},
+      {:timex, "~> 3.6"}
     ]
   end
 
@@ -93,12 +94,6 @@ defmodule Nightingale.Mixfile do
       "ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
       "ecto.reset": ["ecto.drop", "ecto.setup"],
       test: ["ecto.create --quiet", "ecto.migrate", "test"],
-      integration_tests: [
-        "webpack",
-        "ecto.create --quiet",
-        "ecto.migrate",
-        "test --only feature"
-      ],
       webpack: &run_webpack/1
     ]
   end

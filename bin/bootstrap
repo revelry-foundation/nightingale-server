@@ -23,5 +23,3 @@ mix deps.get
 
 echo "Installing node dependencies"
 npm install --prefix assets
-
-brew services start selenium-server-standalone

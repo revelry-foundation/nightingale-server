@@ -1,17 +1,20 @@
 defmodule Nightingale.Factory do
-  alias Nightingale.{Repo, APIKey}
+  alias Nightingale.{Repo}
   use ExMachina.Ecto, repo: Repo
-  alias Nightingale.Generators
 
-  def user_factory do
-    Generators.generate(:user)
+  def geo_point() do
+    %Geo.Point{coordinates: {0.0, 0.0}}
   end
 
-  def api_key_factory do
-    %APIKey{
-      user: build(:user),
-      prefix: sequence(:prefix, &"nightingale.#{&1}"),
-      key_hash: Bcrypt.hash_pwd_salt("test")
+  def datetime(str) when is_bitstring(str) do
+    {:ok, dt, _} = DateTime.from_iso8601(str)
+    dt
+  end
+
+  def positive_location_factory() do
+    %Nightingale.PositiveLocation{
+      location: geo_point(),
+      when: datetime("2020-05-28T17:21:29Z")
     }
   end
 end
