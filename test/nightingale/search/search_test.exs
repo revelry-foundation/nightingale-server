@@ -11,11 +11,11 @@ defmodule Nightingale.SearchTest do
 
     assert [ploc] = Search.find_proximate_positives(lcheck)
 
-    lcheck = %LocationCheck{lat: lat + 90.0, lng: lng, when: when_at}
+    lcheck = %LocationCheck{lat: lat + 10.0, lng: lng, when: when_at}
 
     assert [] = Search.find_proximate_positives(lcheck)
 
-    lcheck = %LocationCheck{lng: lng, lat: lat + 90.0, when: when_at}
+    lcheck = %LocationCheck{lat: lat, lng: lng + 10.0, when: when_at}
 
     assert [] = Search.find_proximate_positives(lcheck)
 
